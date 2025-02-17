@@ -10,7 +10,6 @@ app.use(cors());
 app.use(morgan("dev"))
 app.get("/",(req,res)=>{
     res.send("hello");
-    //hello
 })
 
 module.exports=app;
