@@ -18,12 +18,35 @@ The request body should be a JSON object containing the following fields:
 - `password`: The user's password (minimum 6 characters, required)
 
 Example:
+ ```json
+  {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "password": "password123"
+  }
+
+
+```
+## /users/login
+
+### Description
+This endpoint is used to authenticate a user. It validates the input data, checks the user's credentials, and returns an authentication token along with the user details if the credentials are valid.
+
+### Endpoint
+`POST /users/login`
+
+### Request Body
+The request body should be a JSON object containing the following fields:
+
+- `email`: The user's email address (must be a valid email, required)
+- `password`: The user's password (minimum 6 characters, required)
+
+Example:
 ```json
 {
-  "fullname": {
-    "firstname": "John",
-    "lastname": "Doe"
-  },
   "email": "john.doe@example.com",
   "password": "password123"
 }

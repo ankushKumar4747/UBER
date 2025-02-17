@@ -36,14 +36,14 @@ userSchema.methods.generateAuthToken=function(){
         return token;
 }
 
-userSchema.methods.comparePassword= async function(){
-    return await  bcrypt.compare(this.password, password);
+userSchema.methods.comparePassword= async function(password){
+    return await  bcrypt.compare(password, this.password);
 }
 
 
-userSchema.methods.hashPassword=async function(){
+userSchema.methods.hashPassword=async function(password){
     const salt=await bcrypt.genSalt(10);
-    return hashedPassword=await bcrypt.hash(this.password,salt);
+    return hashedPassword=await bcrypt.hash(password,salt);
 }
 
 const userModel=mongoose.model("userModel",userSchema);
