@@ -50,3 +50,49 @@ Example:
   "email": "john.doe@example.com",
   "password": "password123"
 }
+
+```
+## /users/profile
+
+### Description
+This endpoint retrieves the authenticated user's profile. The request must include a valid authentication token—either as a "Bearer" token in the `Authorization` header or as a cookie. The authentication is handled by the middleware in [`authUser`](Backend/middleware/auth.middleware.js), which verifies the token and populates `req.user`.
+
+### Endpoint
+`GET /users/profile`
+
+### Headers
+- **Authorization**: Bearer token (or include the token as a cookie)
+
+### Response
+On success, the endpoint returns a JSON object containing the user's profile data. An example response is as follows:
+
+```json
+{
+  "_id": "60d0fe4f5311236168a109ca",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com"
+}
+
+```
+
+## /users/logout
+
+### Description
+This endpoint is used to log out a user. It invalidates the user's authentication token by adding it to a blacklist and clearing the token cookie.
+
+### Endpoint
+`GET /users/logout`
+
+### Headers
+- **Authorization**: Bearer token (or include the token as a cookie)
+
+### Response
+On success, the endpoint returns a JSON object confirming the logout success. An example response is as follows:
+
+```json
+{
+  "message": "logout success"
+}
