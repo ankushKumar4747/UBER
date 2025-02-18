@@ -49,6 +49,12 @@ module.exports.loginUser=async (req,res,next)=>{
             return res.status(400).json({error: error.array()});
         }
         const {email,password}=req.body;
+        const isUserExist= await userModel.findOne({email:email});
+        if(isUserExist){
+            return res.status(400).json({
+                message:"user already exist"
+            })
+        }
         const user=await userModel.findOne({email:email}).select("+password");
         if(!user){
             return res.status(401).json({

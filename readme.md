@@ -96,3 +96,44 @@ On success, the endpoint returns a JSON object confirming the logout success. An
 {
   "message": "logout success"
 }
+
+
+```
+## /captain/register
+
+### Description
+This endpoint is used to register a new captain. It validates the input data, hashes the captain's password, creates a new captain in the database, and returns an authentication token along with the captain details.
+
+### Endpoint
+`POST /captain/register`
+
+### Request Body
+The request body should be a JSON object containing the following fields:
+
+- `fullname`: An object containing:
+  - `firstname`: The captain's first name (minimum 3 characters, required)
+  - `lastname`: The captain's last name (minimum 3 characters, optional)
+- `email`: The captain's email address (must be a valid email, required)
+- `password`: The captain's password (minimum 8 characters, required)
+- `vehicle`: An object containing:
+  - `color`: The vehicle's color (minimum 3 characters, required)
+  - `plate`: The vehicle's plate number (minimum 3 characters, required)
+  - `capacity`: The vehicle's capacity (minimum 1, required)
+  - `vehicleType`: The type of vehicle (must be one of "car", "motorcycle", or "auto", required)
+
+Example:
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
