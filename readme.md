@@ -137,3 +137,83 @@ Example:
     "vehicleType": "car"
   }
 }
+
+```
+## /captain/login
+
+### Description
+This endpoint is used to authenticate a captain. It validates the input data, checks the captain's credentials, and returns an authentication token along with the captain's details if the credentials are valid.
+
+### Endpoint
+`POST /captain/login`
+
+### Request Body
+The request body should be a JSON object containing the following fields:
+
+- `email`: The captain's email address (must be a valid email, required)
+- `password`: The captain's password (minimum 8 characters, required)
+
+Example:
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+```
+## /captain/profile
+
+### Description
+This endpoint retrieves the authenticated captain's profile. The request must include a valid authentication token—either as a "Bearer" token in the `Authorization` header or as a cookie. The authentication is handled by the middleware in [`authCaptain`](Backend/middleware/auth.middleware.js), which verifies the token and populates `req.captain`.
+
+### Endpoint
+`GET /captain/profile`
+
+### Headers
+- **Authorization**: Bearer token (or include the token as a cookie)
+
+### Response
+On success, the endpoint returns a JSON object containing the captain's profile data. An example response is as follows:
+
+```json
+{
+  "captain": {
+    "_id": "60d0fe4f5311236168a109ca",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "location": {
+      "lat": 12.9715987,
+      "lng": 77.5945627
+    },
+    "status": "active"
+  }
+}
+
+```
+## /captain/logout
+
+### Description
+This endpoint is used to log out a captain. It invalidates the captain's authentication token by adding it to a blacklist and clearing the token cookie.
+
+### Endpoint
+`GET /captain/logout`
+
+### Headers
+- **Authorization**: Bearer token (or include the token as a cookie)
+
+### Response
+On success, the endpoint returns a JSON object confirming the logout success. An example response is as follows:
+
+```json
+{
+  "message": "captain logout"
+}
